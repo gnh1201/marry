@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>결혼을 축하합니다</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f9;
+      text-align: center;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 1rem 0;
+    }
+    .profile-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 20px auto;
+    }
+    .profile {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 20px;
+      background-color: white;
+      width: 250px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .profile:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+    }
+    .profile img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .profile h2 {
+      margin: 10px 0 5px;
+      font-size: 20px;
+    }
+    .profile p {
+      margin: 0;
+      color: #555;
+    }
+    .account {
+      margin: 30px auto;
+      padding: 20px;
+      width: 80%;
+      max-width: 400px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      background-color: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+    .account h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .account-item {
+      margin: 10px 0;
+      font-size: 16px;
+      color: #333;
+    }
+    .account-item span {
+      font-weight: bold;
+      color: #4CAF50;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>결혼을 축하합니다!</h1>
+    <p>우리의 특별한 날에 함께 해주세요 💕</p>
+  </header>
+  <main>
+    <section class="profile-container">
+      <a class="profile" id="profile1" href="#" target="_blank">
+        <img id="profile1-img" src="" alt="Profile Image">
+        <h2 id="profile1-name"></h2>
+        <p id="profile1-bio"></p>
+      </a>
+      <a class="profile" id="profile2" href="#" target="_blank">
+        <img id="profile2-img" src="" alt="Profile Image">
+        <h2 id="profile2-name"></h2>
+        <p id="profile2-bio"></p>
+      </a>
+    </section>
+    <div class="account">
+      <h2>연락처</h2>
+      <div class="account-item">연락처: <span>010-4671-7981</span></div>
+      <div class="account-item">계좌: <span>국민은행 657801-01-226318 (고남현)</span></div>
+    </div>
+  </main>
+  <script>
+    const githubUsers = ['gnh1201', 'druidesse'];
+
+    githubUsers.forEach((username, index) => {
+      fetch(`https://api.github.com/users/${username}`)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById(`profile${index + 1}-img`).src = data.avatar_url;
+          document.getElementById(`profile${index + 1}-name`).textContent = data.name || data.login;
+          document.getElementById(`profile${index + 1}-bio`).textContent = data.bio || '소개 없음';
+          document.getElementById(`profile${index + 1}`).href = data.html_url;
+        })
+        .catch(error => console.error('GitHub API 에러:', error));
+    });
+  </script>
+</body>
+</html>
